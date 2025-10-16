@@ -53,9 +53,25 @@
             background: #b7d5e5; 
             border-color: #3498db;
         }
+        label.disabled {
+            opacity: 0.6;
+            text-decoration: line-through;
+            color: #999;
+            cursor: not-allowed;
+            background: #f5f5f5;
+            border-color: #ccc;
+        }
+        label.disabled:hover {
+            background: #f5f5f5;
+            border-color: #ccc;
+        }
         input[type="radio"] { 
             margin-right: 12px; 
             transform: scale(1.2);
+        }
+        input[type="radio"]:disabled + span {
+            text-decoration: line-through;
+            color: #999;
         }
         button { 
             width: 100%; 
@@ -84,6 +100,11 @@
             font-size: 12px; 
             color: #666;
         }
+        .loading {
+            text-align: center;
+            color: #3498db;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -93,107 +114,107 @@
     <form action="https://formcarry.com/s/lKoCJSy5rO0" method="POST" id="formLista">
         <input type="hidden" name="_next" value="https://seuusuario.github.io/seurepo/obrigada.html"> <!-- MUDE PRA URL DA SUA PÁGINA DE OBRIGADA -->
         
-        <input type="text" name="nome" placeholder="Seu nome (opcional, pra identificarmos)" required> <!-- Campo pra rastrear quem escolheu -->
+        <input type="text" name="nome" placeholder="Seu nome (opcional, pra identificarmos)" required>
         
         <label>
             <input type="radio" name="presente" value="Body Manga Longa(6-9)" required>
-            Body Manga Longa (6-9)
+            <span>Body Manga Longa (6-9)</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Body Manga Curta(6-9)" required>
-            Body Manga Curta (6-9)
+            <span>Body Manga Curta (6-9)</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Kit de lenços umedecidos" required>
-            Kit de lenços umedecidos
+            <span>Kit de lenços umedecidos</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Shampoo e sabonete baby" required>
-            Shampoo e sabonete baby
+            <span>Shampoo e sabonete baby</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Conjunto de roupinhas de banho" required>
-            Conjunto de roupinhas de banho
+            <span>Conjunto de roupinhas de banho</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Escova e pente" required>
-            Escova e pente
+            <span>Escova e pente</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Conjunto de potinhos para papinhas" required>
-            Conjunto de potinhos para papinhas
+            <span>Conjunto de potinhos para papinhas</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Babador" required>
-            Babador
+            <span>Babador</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Manta" required>
-            Manta
+            <span>Manta</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Cortador de unhas para bebê" required>
-            Cortador de unhas para bebê
+            <span>Cortador de unhas para bebê</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Macacão de dormir" required>
-            Macacão de dormir
+            <span>Macacão de dormir</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Urso de pelúcia" required>
-            Urso de pelúcia
+            <span>Urso de pelúcia</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Almofada de amamentação" required>
-            Almofada de amamentação
+            <span>Almofada de amamentação</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Pomada para Assadura" required>
-            Pomada para Assadura
+            <span>Pomada para Assadura</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Cueiro" required>
-            Cueiro
+            <span>Cueiro</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Paninho de Boca" required>
-            Paninho de Boca
+            <span>Paninho de Boca</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Toalha de banho" required>
-            Toalha de banho
+            <span>Toalha de banho</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Mijãozinho" required>
-            Mijãozinho
+            <span>Mijãozinho</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Sapatinhos" required>
-            Sapatinhos
+            <span>Sapatinhos</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Meias" required>
-            Meias
+            <span>Meias</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Aspirador Nasal" required>
-            Aspirador Nasal
+            <span>Aspirador Nasal</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Naninha" required>
-            Naninha
+            <span>Naninha</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Trocador" required>
-            Trocador
+            <span>Trocador</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Talco" required>
-            Talco
+            <span>Talco</span>
         </label>
         <label>
             <input type="radio" name="presente" value="Saboneteira" required>
-            Saboneteira
+            <span>Saboneteira</span>
         </label>
         
         <button type="submit" id="btnEnviar">Enviar Minha Escolha</button>
@@ -203,6 +224,51 @@
     <p class="rodape">Obrigada por participar do chá de bebê! 🎈</p>
 
     <script>
+        // Configurações - Já com sua API Key!
+        const FORM_ID = 'lKoCJSy5rO0'; // Seu form ID do endpoint
+        const API_KEY = 'k100jb17xHTsuj9aCpmfUS4MYOTJTGGX2o1EXDiG80VYnwVJBYjLGKD9tfOHIiuz'; // Sua API Key copiada
+
+        // Função pra desabilitar itens já escolhidos
+        function disableTakenItems(takenItems) {
+            const labels = document.querySelectorAll('label');
+            labels.forEach(label => {
+                const radio = label.querySelector('input[type="radio"]');
+                if (radio && takenItems.includes(radio.value)) {
+                    radio.disabled = true;
+                    label.classList.add('disabled');
+                }
+            });
+        }
+
+        // Busca submissões na API do Formcarry
+        async function fetchSubmissions() {
+            try {
+                const response = await fetch(`https://formcarry.com/api/form/${FORM_ID}/submissions?limit=50`, {
+                    headers: {
+                        'api_key': API_KEY
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Erro na API');
+                }
+                const data = await response.json();
+                const takenItems = data.submissions
+                    .flatMap(sub => sub.fields)
+                    .filter(field => field.name === 'presente')
+                    .map(field => field.value)
+                    .filter(value => value); // Remove vazios
+                const uniqueTaken = [...new Set(takenItems)]; // Únicos
+                disableTakenItems(uniqueTaken);
+            } catch (error) {
+                console.error('Erro ao buscar itens:', error);
+                // Se der erro, continua sem desabilitar (fallback)
+            }
+        }
+
+        // Carrega itens indisponíveis na inicialização
+        window.addEventListener('load', fetchSubmissions);
+
+        // No envio, desabilita o botão
         document.getElementById('formLista').addEventListener('submit', function() {
             document.getElementById('btnEnviar').disabled = true;
             document.getElementById('btnEnviar').textContent = 'Enviando...';
