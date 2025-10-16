@@ -94,16 +94,6 @@
             text-align: center; 
             margin-top: 15px;
         }
-        .error-msg {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-size: 14px;
-            text-align: center;
-        }
         .loading {
             text-align: center;
             color: #3498db;
@@ -123,12 +113,11 @@
     <p class="info">Data: 25/11 | Escolha APENAS 1 item e envie. Obrigada!</p>
     
     <div id="loading" class="loading" style="display: none;">🔄 Carregando itens disponíveis...</div>
-    <div id="error" class="error-msg" style="display: none;"></div>
     
     <form action="https://formcarry.com/s/lKoCJSy5rO0" method="POST" id="formLista">
         <input type="hidden" name="_next" value=""> <!-- Página do Formcarry -->
         
-        <input type="text" name="nome" placeholder="Seu nome (opcional, pra identificarmos)" required>
+        <input type="text" name="nome" placeholder="Seu nome (pra identificarmos)" required>
         
         <label>
             <input type="radio" name="presente" value="Body Manga Longa(6-9)" required>
@@ -253,9 +242,7 @@
         // Busca submissões via Netlify Function (sem CORS!)
         async function fetchSubmissions() {
             const loadingEl = document.getElementById('loading');
-            const errorEl = document.getElementById('error');
             loadingEl.style.display = 'block';
-            errorEl.style.display = 'none';
 
             try {
                 // URL absoluta pro seu site Netlify
@@ -269,8 +256,7 @@
                 console.log('Itens desabilitados:', uniqueTaken); // Debug
             } catch (error) {
                 console.error('Erro ao buscar itens:', error);
-                errorEl.textContent = '⚠️ Erro ao carregar itens indisponíveis (verifique depois no dashboard).';
-                errorEl.style.display = 'block';
+                // Sem mensagem de erro pro usuário
             } finally {
                 loadingEl.style.display = 'none';
             }
