@@ -10,11 +10,11 @@
             max-width: 600px; 
             margin: 0 auto; 
             padding: 20px; 
-            background: linear-gradient(to bottom, #FFE4E1, #FFF0F5); 
+            background: linear-gradient(to bottom, #b7d5e5, #e0f2f1); 
         }
         h1 { 
             text-align: center; 
-            color: #D63384; 
+            color: #2c3e50; 
             font-size: 24px; 
             margin-bottom: 10px;
         }
@@ -34,15 +34,15 @@
             display: block; 
             margin: 12px 0; 
             padding: 12px; 
-            border: 2px solid #FFE4E1; 
+            border: 2px solid #b7d5e5; 
             border-radius: 8px; 
             cursor: pointer; 
             transition: all 0.2s;
             font-size: 16px;
         }
         label:hover { 
-            background: #FFE4E1; 
-            border-color: #D63384;
+            background: #b7d5e5; 
+            border-color: #3498db;
         }
         input[type="radio"] { 
             margin-right: 12px; 
@@ -51,7 +51,7 @@
         button { 
             width: 100%; 
             padding: 15px; 
-            background: #D63384; 
+            background: #3498db; 
             color: white; 
             border: none; 
             border-radius: 8px; 
@@ -64,7 +64,7 @@
             cursor: not-allowed; 
         }
         .aviso { 
-            color: #D63384; 
+            color: #3498db; 
             font-size: 14px; 
             text-align: center; 
             margin-top: 15px;
@@ -78,7 +78,7 @@
     </style>
 </head>
 <body>
-    <h1>💕 Chá de Bebê - Lista de Presentes 💕</h1>
+    <h1>🎈 Chá de Bebê - Lista de Presentes 🎈</h1>
     <p class="info">Data: 25/11 | Escolha APENAS 1 item e envie. Obrigada!</p>
     
     <form action="https://formspree.io/f/SEU_ENDPOINT_AQUI" method="POST" id="formLista">
@@ -95,8 +95,8 @@
             Kit de lenços umedecidos
         </label>
         <label>
-            <input type="radio" name="presente" value="Shampoo e sabonete Johnson's baby" required>
-            Shampoo e sabonete Johnson's baby
+            <input type="radio" name="presente" value="Shampoo e sabonete baby" required>
+            Shampoo e sabonete baby
         </label>
         <label>
             <input type="radio" name="presente" value="Conjunto de roupinhas de banho" required>
@@ -125,10 +125,6 @@
         <label>
             <input type="radio" name="presente" value="Macacão de dormir" required>
             Macacão de dormir
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Luvas de cetim para bebê" required>
-            Luvas de cetim para bebê
         </label>
         <label>
             <input type="radio" name="presente" value="Urso de pelúcia" required>
@@ -187,16 +183,16 @@
             Saboneteira
         </label>
         
-        <button type="submit" id="btnEnviar">✅ Enviar Minha Escolha</button>
+        <button type="submit" id="btnEnviar">Enviar Minha Escolha</button>
     </form>
 
     <p class="aviso">*Após enviar, o botão será desabilitado. Uma escolha por pessoa!*</p>
-    <p class="rodape">Obrigada por participar do chá de bebê! 💕</p>
+    <p class="rodape">Obrigada por participar do chá de bebê! 🎈</p>
 
     <script>
         document.getElementById('formLista').addEventListener('submit', function() {
             document.getElementById('btnEnviar').disabled = true;
-            document.getElementById('btnEnviar').textContent = '✅ Enviado! Obrigada!';
+            document.getElementById('btnEnviar').textContent = 'Enviado! Obrigada!';
         });
     </script>
 </body>
