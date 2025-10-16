@@ -30,6 +30,15 @@
             border-radius: 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
         }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #b7d5e5;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
         label { 
             display: block; 
             margin: 12px 0; 
@@ -81,8 +90,10 @@
     <h1>🎈 Chá de Bebê - Lista de Presentes 🎈</h1>
     <p class="info">Data: 25/11 | Escolha APENAS 1 item e envie. Obrigada!</p>
     
-    <form action="#" method="POST" id="formLista"> <!-- Troque o "#" pelo endpoint do serviço escolhido (ex: Formcarry) -->
-        <!-- <input type="hidden" name="_next" value="https://seuusuario.github.io/seurepo/obrigada.html"> --> <!-- Descomente quando ativar o serviço -->
+    <form action="https://formcarry.com/s/lKoCJSy5rO0" method="POST" id="formLista">
+        <input type="hidden" name="_next" value="https://seuusuario.github.io/seurepo/obrigada.html"> <!-- MUDE PRA URL DA SUA PÁGINA DE OBRIGADA -->
+        
+        <input type="text" name="nome" placeholder="Seu nome (opcional, pra identificarmos)" required> <!-- Campo pra rastrear quem escolheu -->
         
         <label>
             <input type="radio" name="presente" value="Body Manga Longa(6-9)" required>
@@ -188,15 +199,13 @@
         <button type="submit" id="btnEnviar">Enviar Minha Escolha</button>
     </form>
 
-    <p class="aviso">*Após enviar, o botão será desabilitado. Uma escolha por pessoa!*</p>
+    <p class="aviso">*Após enviar, você será redirecionado para uma página de confirmação. Uma escolha por pessoa!*</p>
     <p class="rodape">Obrigada por participar do chá de bebê! 🎈</p>
 
     <script>
-        document.getElementById('formLista').addEventListener('submit', function(e) {
-            e.preventDefault(); // Impede envio real por enquanto
+        document.getElementById('formLista').addEventListener('submit', function() {
             document.getElementById('btnEnviar').disabled = true;
-            document.getElementById('btnEnviar').textContent = 'Enviado! Obrigada!';
-            // Se ativar um serviço, remova o preventDefault() e adicione redirecionamento se quiser
+            document.getElementById('btnEnviar').textContent = 'Enviando...';
         });
     </script>
 </body>
