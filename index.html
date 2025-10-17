@@ -22,17 +22,21 @@
 </head>
 <body>
     <h1>Chá de Bebê Theo 🎉</h1>
+
+    <!-- Formulário de nome movido pra cima -->
+    <div class="form-group">
+        <input type="text" id="nome" placeholder="Digite seu nome" required>
+    </div>
+
     <p>Selecione um presente abaixo. Itens já escolhidos pelos convidados ficam riscados e indisponíveis.</p>
     
     <ul id="presentesList">
         <li id="loading">Carregando itens...</li>
     </ul>
 
-    <!-- Formulário original restaurado -->
-    <div class="form-group">
-        <input type="text" id="nome" placeholder="Digite seu nome" required>
+    <p style="text-align: center; margin-top: 20px;">
         <button onclick="enviarFormulario()">Enviar Resposta</button>
-    </div>
+    </p>
 
     <script>
         const presentes = [
@@ -97,13 +101,13 @@
                     li.classList.add('taken');
                 } else {
                     checkbox.addEventListener('change', async () => {
+                        const nome = document.getElementById('nome').value.trim();
+                        if (!nome) {
+                            alert('Por favor, digite seu nome antes de selecionar um presente!');
+                            checkbox.checked = false;
+                            return;
+                        }
                         if (checkbox.checked) {
-                            const nome = document.getElementById('nome').value.trim();
-                            if (!nome) {
-                                alert('Por favor, digite seu nome antes de selecionar um presente!');
-                                checkbox.checked = false;
-                                return;
-                            }
                             const success = await salvarSelecao(item, nome);
                             if (success) {
                                 li.classList.add('taken');
@@ -124,7 +128,7 @@
                 const response = await fetch('/.netlify/functions/submit-presente', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ presente: item, nome: nome }) // Inclui o nome
+                    body: JSON.stringify({ presente: item, nome: nome })
                 });
                 if (response.ok) {
                     alert(`Obrigado, ${nome}! "${item}" foi reservado. Recarregue a página pra ver atualizado pros outros.`);
@@ -139,16 +143,14 @@
             }
         }
 
-        // Função para o formulário original
         async function enviarFormulario() {
             const nome = document.getElementById('nome').value.trim();
             if (!nome) {
                 alert('Por favor, digite seu nome!');
                 return;
             }
-            // Aqui você pode enviar pro Formcarry original (ajuste a URL do FORM_ID)
-            const FORM_ID = 'lKoCJSy5rO0'; // Substitua pelo seu FORM_ID real se diferente
-            const API_KEY = 'k100jb17xHTsuj9aCpmfUS4MYOTJTGGX2o1EXDiG80VYnwVJBYjLGKD9tfOHIiuz';
+            const FORM_ID = 'lKoCJSy5rO0'; // Confirme se esse é o FORM_ID correto
+            const API_KEY = 'k100jb17xHTsuj9aCpmfUS4MYOTJTGGX2o1EXDiG80VYnwVJBYjLGKD9tfOHIiuz'; // Confirme a chave
 
             try {
                 const response = await fetch(`https://formcarry.com/api/form/${FORM_ID}/submissions`, {
@@ -160,11 +162,11 @@
                     alert(`Obrigado, ${nome}! Sua resposta foi enviada.`);
                     document.getElementById('nome').value = ''; // Limpa o campo
                 } else {
-                    throw new Error('Falha ao enviar');
+                    throw new Error(`Falha ao enviar: ${response.status} - ${await response.text()}`);
                 }
             } catch (error) {
                 console.error('Erro ao enviar:', error);
-                alert('Erro ao enviar sua resposta. Tente novamente.');
+                alert('Erro ao enviar sua resposta. Verifique o console ou tente novamente.');
             }
         }
 
