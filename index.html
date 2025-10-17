@@ -1,103 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chá de bebê do Théo - Lista de Presentes</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #4a90e2;
-      color: #fff;
-    }
-    h1 {
-      text-align: center;
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-    .event-info {
-      text-align: center;
-      font-size: 1.2em;
-      margin-bottom: 20px;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background: #fff;
-      color: #333;
-      display: flex;
-      align-items: center;
-    }
-    input[type="checkbox"] {
-      margin-right: 10px;
-    }
-    .taken {
-      text-decoration: line-through;
-      color: #999;
-      opacity: 0.6;
-      background: #ffebee !important;
-      position: relative;
-    }
-    .taken input[type="checkbox"] {
-      display: none;
-    }
-    .taken::before {
-      content: "✅ Limite atingido! ";
-      font-weight: bold;
-      position: absolute;
-      left: 10px;
-      top: 10px;
-    }
-    button {
-      background: #fff;
-      color: #4a90e2;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-      margin: 5px 0;
-      font-size: 1em;
-    }
-    button:hover {
-      background: #e0e0e0;
-    }
-    #loading {
-      text-align: center;
-      color: #fff;
-    }
-    .form-group {
-      margin: 20px 0;
-    }
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background: #fff;
-      color: #333;
-      font-size: 1em;
-    }
-    #senha-zera {
-      display: none;
-      margin-top: 10px;
-    }
-    #senha-zera.active {
-      display: block;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chá de bebê do Théo - Lista de Presentes</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #4a90e2;
+    color: #fff;
+  }
+  h1, .event-info {
+    text-align: center;
+    color: #fff;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    color: #333;
+  }
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  .taken {
+    text-decoration: line-through;
+    color: #999;
+    opacity: 0.6;
+    background: #ffebee !important;
+  }
+  .taken input[type="checkbox"] {
+    display: none;
+  }
+  .taken::before {
+    content: "✅ Limite atingido! ";
+    font-weight: bold;
+  }
+  button {
+    background: #fff;
+    color: #4a90e2;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin: 5px 0;
+  }
+  button:hover {
+    background: #e0e0e0;
+  }
+  #loading {
+    text-align: center;
+    color: #fff;
+  }
+  .form-group {
+    margin: 20px 0;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fff;
+    color: #333;
+  }
+  #senha-zera {
+    display: none;
+    margin-top: 10px;
+  }
+  #senha-zera.active {
+    display: block;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <h1>🎈 Chá de bebê do Théo 🎈</h1>
@@ -123,191 +108,180 @@
     <button onclick="zerarLista()">Confirmar</button>
   </div>
 
-  <script>
-    // Inicializa EmailJS
-    (function () {
-      emailjs.init("Nt9goDnO2YFhX8RET");
-      console.log("EmailJS inicializado.");
-    })();
+<script>
+  emailjs.init("Nt9goDnO2YFhX8RET");
 
-    const URL_APPS_SCRIPT =
-      "https://script.google.com/macros/s/AKfycbxg9a7M1rI9eJRabn6LFZe8BqoELhf9K602Taz1B6UJw0fam3XAmJVhiTI5qRnO1t2nbw/exec";
-    const SENHA_ZERAR = "théo2025";
+  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxg9a7M1rI9eJRabn6LFZe8BqoELhf9K602Taz1B6UJw0fam3XAmJVhiTI5qRnO1t2nbw/exec";
+  const SENHA_ZERAR = "théo2025";
 
-    // Função para carregar os contadores da API do Google Apps Script
-    async function carregarContadores() {
-      try {
-        const response = await fetch(URL_APPS_SCRIPT);
-        const data = await response.json();
-        console.log("Contadores carregados:", data);
-        return data;
-      } catch (error) {
-        console.error("Erro ao carregar contadores:", error);
-        return {};
-      }
+  async function carregarContadores() {
+    try {
+      const response = await fetch(URL_APPS_SCRIPT);
+      if (!response.ok) throw new Error("Erro ao carregar dados");
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Erro ao carregar:", error);
+      return {};
     }
+  }
 
-    // Função para incrementar contador do item na API
-    async function atualizarContador(item) {
-      try {
-        await fetch(URL_APPS_SCRIPT, {
-          method: "POST",
-          body: JSON.stringify({ item: item, action: "increment" }),
-          headers: { "Content-Type": "application/json" },
-        });
-        console.log(`Contador atualizado para item: ${item}`);
-      } catch (error) {
-        console.error("Erro ao atualizar contador:", error);
-      }
-    }
-
-    // Função para verificar se item já atingiu limite
-    function estaTomado(item, contadores) {
-      const chave = item.toLowerCase().replace(/\s+/g, "_");
-      const { contador = 0, limite = 0 } = contadores[chave] || {};
-      return contador >= limite;
-    }
-
-    // Mostra campo senha para zerar lista
-    function mostrarSenhaZerar() {
-      document.getElementById("senha-zera").classList.add("active");
-    }
-
-    // Zera todos os contadores com senha
-    async function zerarLista() {
-      const senha = document.getElementById("input-senha").value;
-      if (senha === SENHA_ZERAR) {
-        try {
-          await fetch(URL_APPS_SCRIPT, {
-            method: "POST",
-            body: JSON.stringify({ action: "reset" }),
-            headers: { "Content-Type": "application/json" },
-          });
-          alert("Lista zerada!");
-          document.getElementById("senha-zera").classList.remove("active");
-          document.getElementById("input-senha").value = "";
-          await renderizarLista();
-        } catch (error) {
-          console.error("Erro ao zerar lista:", error);
-          alert("Erro ao zerar lista.");
-        }
-      } else {
-        alert("Senha errada!");
-      }
-    }
-
-    // Função para renderizar a lista de presentes com base nos contadores atuais
-    async function renderizarLista() {
-      const list = document.getElementById("presentesList");
-      list.innerHTML = '<li id="loading">Carregando itens...</li>';
-
-      const contadores = await carregarContadores();
-      list.innerHTML = "";
-
-      const presentes = [
-        "Body Manga Longa (6-9)",
-        "Body Manga Curta (6-9)",
-        "Kit de lenços umedecidos",
-        "Shampoo e sabonete baby",
-        "Conjunto de roupinhas de banho",
-        "Escova e pente",
-        "Conjunto de potinhos para papinhas",
-        "Babador",
-        "Manta",
-        "Cortador de unhas para bebê",
-        "Macacão de dormir",
-        "Urso de pelúcia",
-        "Almofada de amamentação",
-        "Pomada para Assadura",
-        "Cueiro",
-        "Paninho de Boca",
-        "Toalha de banho",
-        "Mijãozinho",
-        "Sapatinhos",
-        "Meias",
-        "Aspirador Nasal",
-        "Naninha",
-        "Trocador",
-        "Talco",
-        "Saboneteira",
-      ];
-
-      presentes.forEach((item) => {
-        const li = document.createElement("li");
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = item.toLowerCase().replace(/\s+/g, "-");
-        checkbox.name = "presentes";
-
-        const label = document.createElement("label");
-        label.htmlFor = checkbox.id;
-        label.textContent = item;
-
-        li.appendChild(checkbox);
-        li.appendChild(label);
-
-        if (estaTomado(item, contadores)) {
-          li.classList.add("taken");
-          checkbox.disabled = true;
-        }
-
-        list.appendChild(li);
+  async function atualizarContador(item) {
+    try {
+      const response = await fetch(URL_APPS_SCRIPT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ item, action: "increment" }),
       });
+      if (!response.ok) throw new Error("Erro ao atualizar");
+    } catch (error) {
+      console.error("Erro ao atualizar contador:", error);
     }
+  }
 
-    // Função para enviar o formulário e atualizar os contadores
-    async function enviarFormulario() {
-      const nome = document.getElementById("nome").value.trim();
-      if (!nome) {
-        alert("Digite seu nome!");
-        return;
-      }
+  function estaTomado(item, contadores) {
+    const chave = item.toLowerCase().replace(/\s+/g, "_");
+    const obj = contadores[chave];
+    if (!obj) return false;
+    return obj.contador >= obj.limite && obj.limite > 0;
+  }
 
-      const selecionados = Array.from(
-        document.querySelectorAll('input[name="presentes"]:checked')
-      ).map((cb) => cb.nextElementSibling.textContent);
+  function mostrarSenhaZerar() {
+    document.getElementById("senha-zera").classList.add("active");
+  }
 
-      if (selecionados.length === 0) {
-        alert("Selecione um presente!");
-        return;
-      }
-
-      const contadores = await carregarContadores();
-
-      for (let item of selecionados) {
-        if (estaTomado(item, contadores)) {
-          alert(`${item} atingiu o limite!`);
-          return;
-        }
-      }
-
+  async function zerarLista() {
+    const senha = document.getElementById("input-senha").value;
+    if (senha === SENHA_ZERAR) {
       try {
-        await emailjs.send("service_2jq56gm", "template_007ur9o", {
-          nome: nome,
-          presentes: selecionados.join(", "),
+        const response = await fetch(URL_APPS_SCRIPT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "reset" }),
         });
-
-        for (let item of selecionados) {
-          await atualizarContador(item);
-        }
-
-        // Espera um segundo para garantir que o Apps Script atualize a planilha
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
+        if (!response.ok) throw new Error("Erro ao zerar lista");
+        alert("Lista zerada!");
+        document.getElementById("senha-zera").classList.remove("active");
+        document.getElementById("input-senha").value = "";
         await renderizarLista();
-
-        alert(`Obrigado, ${nome}!`);
-        document.getElementById("nome").value = "";
-        document.querySelectorAll('input[name="presentes"]:checked').forEach((cb) => (cb.checked = false));
       } catch (error) {
-        console.error("Erro no envio:", error);
-        alert("Erro no envio. Verifique o console.");
+        alert("Erro ao zerar lista");
+        console.error(error);
+      }
+    } else {
+      alert("Senha errada!");
+    }
+  }
+
+  async function renderizarLista() {
+    const list = document.getElementById("presentesList");
+    list.innerHTML = '<li id="loading">Carregando itens...</li>';
+
+    const contadores = await carregarContadores();
+
+    list.innerHTML = "";
+
+    const presentes = [
+      "Body Manga Longa (6-9)",
+      "Body Manga Curta (6-9)",
+      "Kit de lenços umedecidos",
+      "Shampoo e sabonete baby",
+      "Conjunto de roupinhas de banho",
+      "Escova e pente",
+      "Conjunto de potinhos para papinhas",
+      "Babador",
+      "Manta",
+      "Cortador de unhas para bebê",
+      "Macacão de dormir",
+      "Urso de pelúcia",
+      "Almofada de amamentação",
+      "Pomada para Assadura",
+      "Cueiro",
+      "Paninho de Boca",
+      "Toalha de banho",
+      "Mijãozinho",
+      "Sapatinhos",
+      "Meias",
+      "Aspirador Nasal",
+      "Naninha",
+      "Trocador",
+      "Talco",
+      "Saboneteira",
+    ];
+
+    presentes.forEach((item) => {
+      const li = document.createElement("li");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = item.toLowerCase().replace(/\s+/g, "-");
+      checkbox.name = "presentes";
+
+      const label = document.createElement("label");
+      label.htmlFor = checkbox.id;
+      label.textContent = item;
+
+      li.appendChild(checkbox);
+      li.appendChild(label);
+
+      if (estaTomado(item, contadores)) {
+        li.classList.add("taken");
+        checkbox.disabled = true;
+      }
+
+      list.appendChild(li);
+    });
+  }
+
+  async function enviarFormulario() {
+    const nome = document.getElementById("nome").value.trim();
+    if (!nome) {
+      alert("Digite seu nome!");
+      return;
+    }
+
+    const selecionados = Array.from(
+      document.querySelectorAll('input[name="presentes"]:checked')
+    ).map((cb) => cb.nextElementSibling.textContent);
+
+    if (selecionados.length === 0) {
+      alert("Selecione um presente!");
+      return;
+    }
+
+    const contadores = await carregarContadores();
+
+    for (const item of selecionados) {
+      if (estaTomado(item, contadores)) {
+        alert(`${item} atingiu o limite!`);
+        return;
       }
     }
 
-    // Inicializa renderização da lista ao carregar página
-    renderizarLista();
-  </script>
+    try {
+      await emailjs.send("service_2jq56gm", "template_007ur9o", {
+        nome: nome,
+        presentes: selecionados.join(", "),
+      });
+
+      for (const item of selecionados) {
+        await atualizarContador(item);
+      }
+
+      alert(`Obrigado, ${nome}!`);
+
+      document.getElementById("nome").value = "";
+      document
+        .querySelectorAll('input[name="presentes"]:checked')
+        .forEach((cb) => (cb.checked = false));
+
+      await renderizarLista();
+    } catch (error) {
+      console.error(error);
+      alert("Erro no envio. Verifique o console.");
+    }
+  }
+
+  renderizarLista();
+</script>
 </body>
 </html>
-
