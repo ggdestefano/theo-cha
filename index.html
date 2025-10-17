@@ -11,11 +11,12 @@
         li { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9; }
         input[type="checkbox"] { margin-right: 10px; }
         .taken { text-decoration: line-through; color: #999; opacity: 0.6; background: #ffebee !important; }
-        .taken input[type="checkbox"] { display: none; } /* Esconde checkbox se já taken */
+        .taken input[type="checkbox"] { display: none; }
         .taken::before { content: "✅ Tomado! "; font-weight: bold; }
         button { background: #4a90e2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
         button:hover { background: #357abd; }
         #loading { text-align: center; color: #666; }
+        .disabled { opacity: 0.5; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -23,16 +24,14 @@
     <p>Selecione um presente abaixo. Itens já escolhidos pelos convidados ficam riscados e indisponíveis.</p>
     
     <ul id="presentesList">
-        <!-- Lista vai ser preenchida via JS -->
         <li id="loading">Carregando itens...</li>
     </ul>
     
     <p style="text-align: center; margin-top: 20px;">
-        <button onclick="salvarSelecao('Body Manga Longa (6-9)')">Exemplo: Selecionar Body Manga Longa</button> <!-- Remove depois, só pra teste -->
+        <button onclick="salvarSelecao('Body Manga Longa (6-9)')">Exemplo: Selecionar Body Manga Longa</button>
     </p>
 
     <script>
-        // Lista de presentes (exatamente como você forneceu!)
         const presentes = [
             'Body Manga Longa (6-9)',
             'Body Manga Curta (6-9)',
@@ -61,30 +60,28 @@
             'Saboneteira'
         ];
 
-        // Função pra carregar itens tomados
         async function carregarTakenItems() {
             try {
                 const response = await fetch('/.netlify/functions/get-submissions');
                 if (!response.ok) throw new Error('Erro na função');
                 const data = await response.json();
-                return new Set(data.takenItems || []); // Set pra checagem rápida
+                return new Set(data.takenItems || []);
             } catch (error) {
                 console.error('Erro ao carregar:', error);
-                return new Set(); // Fallback vazio
+                return new Set();
             }
         }
 
-        // Renderiza a lista
         async function renderizarLista() {
             const taken = await carregarTakenItems();
             const list = document.getElementById('presentesList');
-            list.innerHTML = ''; // Limpa loading
+            list.innerHTML = '';
 
             presentes.forEach(item => {
                 const li = document.createElement('li');
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
-                checkbox.id = item.replace(/\s+/g, '-').toLowerCase(); // ID único
+                checkbox.id = item.replace(/\s+/g, '-').toLowerCase();
 
                 const label = document.createElement('label');
                 label.htmlFor = checkbox.id;
@@ -93,16 +90,18 @@
                 li.appendChild(checkbox);
                 li.appendChild(label);
 
-                // Se já taken, risca e esconde checkbox
                 if (taken.has(item)) {
                     li.classList.add('taken');
                 } else {
-                    // Adiciona evento pra salvar quando selecionar
-                    checkbox.addEventListener('change', () => {
+                    checkbox.addEventListener('change', async () => {
                         if (checkbox.checked) {
-                            salvarSelecao(item);
-                            checkbox.disabled = true; // Impede múltiplas seleções
-                            li.classList.add('taken'); // Risca imediatamente
+                            const success = await salvarSelecao(item);
+                            if (success) {
+                                li.classList.add('taken');
+                                checkbox.disabled = true; // Bloqueia após salvar
+                            } else {
+                                checkbox.checked = false; // Desmarca se falhar
+                            }
                         }
                     });
                 }
@@ -111,28 +110,27 @@
             });
         }
 
-        // Função pra "salvar" (envia pro Formcarry - ajuste a implementação real)
         async function salvarSelecao(item) {
-            // Para teste: Log e alerta
-            console.log(`Selecionado: ${item}`);
-            alert(`Obrigado! "${item}" foi reservado. Recarregue a página pra ver atualizado pros outros.`);
-
-            // TODO: Implementar envio real pro Formcarry
-            // Exemplo: Descomente e ajuste a função submit
-            /*
-            const response = await fetch('/.netlify/functions/submit-presente', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ presente: item })
-            });
-            if (response.ok) location.reload(); // Recarrega se sucesso
-            */
-
-            // Recarrega pra simular update (em prod, use polling ou WebSockets)
-            setTimeout(() => location.reload(), 2000);
+            try {
+                const response = await fetch('/.netlify/functions/submit-presente', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ presente: item })
+                });
+                if (response.ok) {
+                    alert(`Obrigado! "${item}" foi reservado. Recarregue a página pra ver atualizado pros outros.`);
+                    // Não recarrega automaticamente, deixa o usuário fazer manualmente
+                    return true;
+                } else {
+                    throw new Error('Falha ao salvar');
+                }
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                alert('Erro ao reservar o presente. Tente novamente.');
+                return false;
+            }
         }
 
-        // Carrega na init
         renderizarLista();
     </script>
 </body>
