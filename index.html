@@ -1,216 +1,281 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chá de bebê do Théo - Lista de Presentes</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #4a90e2; color: #fff; }
-        h1 { text-align: center; color: #fff; font-size: 2em; }
-        .event-info { text-align: center; color: #fff; font-size: 1.2em; margin-bottom: 20px; }
-        ul { list-style: none; padding: 0; }
-        li { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; color: #333; }
-        input[type="checkbox"] { margin-right: 10px; }
-        .taken { text-decoration: line-through; color: #999; opacity: 0.6; background: #ffebee !important; }
-        .taken input[type="checkbox"] { display: none; }
-        .taken::before { content: "✅ Limite atingido! "; font-weight: bold; }
-        button { background: #fff; color: #4a90e2; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; width: 100%; margin: 5px 0; }
-        button:hover { background: #e0e0e0; }
-        #loading { text-align: center; color: #fff; }
-        .form-group { margin: 20px 0; }
-        input[type="text"] { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; color: #333; }
-        #senha-zera { display: none; margin-top: 10px; }
-        #senha-zera.active { display: block; }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chá de bebê do Théo - Lista de Presentes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #4a90e2;
+      color: #fff;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2em;
+    }
+    .event-info {
+      text-align: center;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #fff;
+      color: #333;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .taken {
+      text-decoration: line-through;
+      color: #999;
+      opacity: 0.6;
+      background: #ffebee !important;
+    }
+    .taken input[type="checkbox"] {
+      display: none;
+    }
+    .taken::before {
+      content: "✅ Limite atingido! ";
+      font-weight: bold;
+    }
+    button {
+      background: #fff;
+      color: #4a90e2;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin: 5px 0;
+    }
+    button:hover {
+      background: #e0e0e0;
+    }
+    #loading {
+      text-align: center;
+      color: #fff;
+    }
+    .form-group {
+      margin: 20px 0;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #fff;
+      color: #333;
+    }
+    #senha-zera {
+      display: none;
+      margin-top: 10px;
+    }
+    #senha-zera.active {
+      display: block;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-    <h1>🎈 Chá de bebê do Théo 🎈</h1>
-    <div class="event-info">Data do evento: 09/11/2025 às 15:00</div>
+  <h1>🎈 Chá de bebê do Théo 🎈</h1>
+  <div class="event-info">Data do evento: 09/11/2025 às 15:00</div>
 
-    <div class="form-group">
-        <input type="text" id="nome" placeholder="Digite seu nome" required>
-    </div>
+  <div class="form-group">
+    <input type="text" id="nome" placeholder="Digite seu nome" required />
+  </div>
 
-    <p style="color: #fff;">Selecione um ou mais presentes abaixo e envie sua resposta.</p>
-    
-    <ul id="presentesList">
-        <li id="loading">Carregando itens...</li>
-    </ul>
+  <p>Selecione um ou mais presentes abaixo e envie sua resposta.</p>
+  <ul id="presentesList">
+    <li id="loading">Carregando itens...</li>
+  </ul>
 
-    <p style="text-align: center; margin-top: 20px;">
-        <button onclick="enviarFormulario()">Enviar Resposta</button>
-        <button onclick="mostrarSenhaZerar()">Zerar Lista</button>
-    </p>
-    <div id="senha-zera">
-        <input type="password" id="input-senha" placeholder="Digite a senha para zerar">
-        <button onclick="zerarLista()">Confirmar</button>
-    </div>
+  <p style="text-align: center; margin-top: 20px;">
+    <button onclick="enviarFormulario()">Enviar Resposta</button>
+    <button onclick="mostrarSenhaZerar()">Zerar Lista</button>
+  </p>
 
-    <script>
-        (function() {
-            emailjs.init({
-                publicKey: "Nt9goDnO2YFhX8RET"
-            });
-            console.log("EmailJS inicializado.");
-        })();
+  <div id="senha-zera">
+    <input type="password" id="input-senha" placeholder="Digite a senha para zerar" />
+    <button onclick="zerarLista()">Confirmar</button>
+  </div>
 
-        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxg9a7M1rI9eJRabn6LFZe8BqoELhf9K602Taz1B6UJw0fam3XAmJVhiTI5qRnO1t2nbw/exec";
-        const PLANILHA_ID = "1JLurQkYvq4awI3LyP4MvqLklj_5nPR5_z6CpiV_zG7I";
-        const SENHA_ZERAR = "théo2025";
+  <script>
+    (function() {
+      emailjs.init("Nt9goDnO2YFhX8RET");
+      console.log("EmailJS inicializado.");
+    })();
 
-        async function carregarContadores() {
-            try {
-                const response = await fetch(URL_APPS_SCRIPT);
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error("Erro ao carregar:", error);
-                return {};
-            }
+    const URL_APPS_SCRIPT = "https://script.google.com/macros/s/SEU_SCRIPT_ID/exec"; // substitua pelo seu
+    const SENHA_ZERAR = "théo2025";
+
+    async function carregarContadores() {
+      try {
+        const response = await fetch(URL_APPS_SCRIPT);
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Erro ao carregar:", error);
+        return {};
+      }
+    }
+
+    async function atualizarContador(item) {
+      try {
+        await fetch(URL_APPS_SCRIPT, {
+          method: "POST",
+          body: JSON.stringify({ item: item.toLowerCase().replace(/\s+/g, "_"), action: "increment" }),
+          headers: { "Content-Type": "application/json" },
+        });
+        console.log(`Atualizado ${item}`);
+      } catch (error) {
+        console.error("Erro ao atualizar:", error);
+      }
+    }
+
+    function estaTomado(item, contadores) {
+      const chave = item.toLowerCase().replace(/\s+/g, "_");
+      const { contador = 0, limite = 0 } = contadores[chave] || {};
+      if (limite === 0) return false; // Se limite não definido, disponível
+      return contador >= limite;
+    }
+
+    function mostrarSenhaZerar() {
+      document.getElementById("senha-zera").classList.add("active");
+    }
+
+    async function zerarLista() {
+      const senha = document.getElementById("input-senha").value;
+      if (senha === SENHA_ZERAR) {
+        await fetch(URL_APPS_SCRIPT, {
+          method: "POST",
+          body: JSON.stringify({ action: "reset" }),
+          headers: { "Content-Type": "application/json" },
+        });
+        await renderizarLista();
+        alert("Lista zerada!");
+        document.getElementById("senha-zera").classList.remove("active");
+        document.getElementById("input-senha").value = "";
+      } else {
+        alert("Senha errada!");
+      }
+    }
+
+    async function renderizarLista() {
+      const list = document.getElementById("presentesList");
+      list.innerHTML = '<li id="loading">Carregando itens...</li>';
+      const contadores = await carregarContadores();
+      list.innerHTML = "";
+
+      const presentes = [
+        "Body Manga Longa (6-9)",
+        "Body Manga Curta (6-9)",
+        "Kit de lenços umedecidos",
+        "Shampoo e sabonete baby",
+        "Conjunto de roupinhas de banho",
+        "Escova e pente",
+        "Conjunto de potinhos para papinhas",
+        "Babador",
+        "Manta",
+        "Cortador de unhas para bebê",
+        "Macacão de dormir",
+        "Urso de pelúcia",
+        "Almofada de amamentação",
+        "Pomada para Assadura",
+        "Cueiro",
+        "Paninho de Boca",
+        "Toalha de banho",
+        "Mijãozinho",
+        "Sapatinhos",
+        "Meias",
+        "Aspirador Nasal",
+        "Naninha",
+        "Trocador",
+        "Talco",
+        "Saboneteira",
+      ];
+
+      presentes.forEach((item) => {
+        const li = document.createElement("li");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = item.toLowerCase().replace(/\s+/g, "-");
+        checkbox.name = "presentes";
+
+        const label = document.createElement("label");
+        label.htmlFor = checkbox.id;
+        label.textContent = item;
+
+        li.appendChild(checkbox);
+        li.appendChild(label);
+
+        if (estaTomado(item, contadores)) {
+          li.classList.add("taken");
+          checkbox.disabled = true;
         }
 
-        async function atualizarContador(item) {
-            try {
-                await fetch(URL_APPS_SCRIPT, {
-                    method: 'POST',
-                    body: JSON.stringify({ item: item, action: 'increment' }),
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                console.log(`Atualizado ${item}`);
-            } catch (error) {
-                console.error("Erro ao atualizar:", error);
-            }
+        list.appendChild(li);
+      });
+    }
+
+    async function enviarFormulario() {
+      const nome = document.getElementById("nome").value.trim();
+      if (!nome) {
+        alert("Digite seu nome!");
+        return;
+      }
+
+      const selecionados = Array.from(document.querySelectorAll('input[name="presentes"]:checked')).map(
+        (cb) => cb.nextElementSibling.textContent
+      );
+
+      if (selecionados.length === 0) {
+        alert("Selecione um presente!");
+        return;
+      }
+
+      const contadores = await carregarContadores();
+      for (let item of selecionados) {
+        if (estaTomado(item, contadores)) {
+          alert(`${item} atingiu o limite!`);
+          return;
+        }
+      }
+
+      try {
+        await emailjs.send("service_2jq56gm", "template_007ur9o", {
+          nome: nome,
+          presentes: selecionados.join(", "),
+        });
+
+        for (let item of selecionados) {
+          await atualizarContador(item);
         }
 
-        function estaTomado(item, contadores) {
-            const chave = `contador_${item.toLowerCase().replace(/\s+/g, '_')}`;
-            const { contador, limite } = contadores[chave] || { contador: 0, limite: 0 };
-            return contador >= limite;
-        }
+        await renderizarLista();
 
-        function mostrarSenhaZerar() {
-            document.getElementById('senha-zera').classList.add('active');
-        }
+        alert(`Obrigado, ${nome}!`);
+        document.getElementById("nome").value = "";
+        document.querySelectorAll('input[name="presentes"]:checked').forEach((cb) => (cb.checked = false));
+      } catch (error) {
+        console.error(error);
+        alert("Erro no envio. Verifique o console.");
+      }
+    }
 
-        async function zerarLista() {
-            const senha = document.getElementById('input-senha').value;
-            if (senha === SENHA_ZERAR) {
-                await fetch(URL_APPS_SCRIPT, {
-                    method: 'POST',
-                    body: JSON.stringify({ action: 'reset' }),
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                renderizarLista();
-                alert("Lista zerada!");
-                document.getElementById('senha-zera').classList.remove('active');
-                document.getElementById('input-senha').value = '';
-            } else {
-                alert("Senha errada!");
-            }
-        }
-
-        async function renderizarLista() {
-            const list = document.getElementById('presentesList');
-            list.innerHTML = '<li id="loading">Carregando itens...</li>';
-            const contadores = await carregarContadores();
-            list.innerHTML = '';
-
-            const presentes = [
-                'Body Manga Longa (6-9)',
-                'Body Manga Curta (6-9)',
-                'Kit de lenços umedecidos',
-                'Shampoo e sabonete baby',
-                'Conjunto de roupinhas de banho',
-                'Escova e pente',
-                'Conjunto de potinhos para papinhas',
-                'Babador',
-                'Manta',
-                'Cortador de unhas para bebê',
-                'Macacão de dormir',
-                'Urso de pelúcia',
-                'Almofada de amamentação',
-                'Pomada para Assadura',
-                'Cueiro',
-                'Paninho de Boca',
-                'Toalha de banho',
-                'Mijãozinho',
-                'Sapatinhos',
-                'Meias',
-                'Aspirador Nasal',
-                'Naninha',
-                'Trocador',
-                'Talco',
-                'Saboneteira'
-            ];
-
-            presentes.forEach((item) => {
-                const li = document.createElement('li');
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = item.toLowerCase().replace(/\s+/g, '-');
-                checkbox.name = 'presentes';
-
-                const label = document.createElement('label');
-                label.htmlFor = checkbox.id;
-                label.textContent = item;
-
-                li.appendChild(checkbox);
-                li.appendChild(label);
-
-                if (estaTomado(item, contadores)) {
-                    li.classList.add('taken');
-                    checkbox.disabled = true;
-                }
-
-                list.appendChild(li);
-            });
-        }
-
-        async function enviarFormulario() {
-            const nome = document.getElementById('nome').value.trim();
-            if (!nome) {
-                alert('Digite seu nome!');
-                return;
-            }
-
-            const selecionados = Array.from(document.querySelectorAll('input[name="presentes"]:checked'))
-                .map(cb => cb.nextElementSibling.textContent);
-
-            if (selecionados.length === 0) {
-                alert('Selecione um presente!');
-                return;
-            }
-
-            const contadores = await carregarContadores();
-            for (let item of selecionados) {
-                if (estaTomado(item, contadores)) {
-                    alert(`${item} atingiu o limite!`);
-                    return;
-                }
-            }
-
-            try {
-                await emailjs.send("service_2jq56gm", "template_007ur9o", {
-                    nome: nome,
-                    presentes: selecionados.join(', ')
-                });
-
-                for (let item of selecionados) {
-                    await atualizarContador(item);
-                }
-                renderizarLista();
-
-                alert(`Obrigado, ${nome}!`);
-                document.getElementById('nome').value = '';
-                document.querySelectorAll('input[name="presentes"]:checked').forEach(cb => cb.checked = false);
-            } catch (error) {
-                console.error(error);
-                alert('Erro no envio. Verifique o console.');
-            }
-        }
-
-        renderizarLista();
-    </script>
+    renderizarLista();
+  </script>
 </body>
 </html>
