@@ -3,274 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chá de Bebê - Lista de Presentes</title>
+    <title>Chá de Bebê Theo - Lista de Presentes</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 600px; 
-            margin: 0 auto; 
-            padding: 20px; 
-            background: linear-gradient(to bottom, #b7d5e5, #e0f2f1); 
-        }
-        h1 { 
-            text-align: center; 
-            color: #2c3e50; 
-            font-size: 24px; 
-            margin-bottom: 10px;
-        }
-        .info { 
-            text-align: center; 
-            color: #666; 
-            font-size: 14px; 
-            margin-bottom: 20px;
-        }
-        form { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #b7d5e5;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        label { 
-            display: block; 
-            margin: 12px 0; 
-            padding: 12px; 
-            border: 2px solid #b7d5e5; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            transition: all 0.2s;
-            font-size: 16px;
-        }
-        label:hover { 
-            background: #b7d5e5; 
-            border-color: #3498db;
-        }
-        label.disabled {
-            opacity: 0.6;
-            text-decoration: line-through;
-            color: #999;
-            cursor: not-allowed;
-            background: #f5f5f5;
-            border-color: #ccc;
-        }
-        label.disabled:hover {
-            background: #f5f5f5;
-            border-color: #ccc;
-        }
-        input[type="radio"] { 
-            margin-right: 12px; 
-            transform: scale(1.2);
-        }
-        input[type="radio"]:disabled + span {
-            text-decoration: line-through;
-            color: #999;
-        }
-        button { 
-            width: 100%; 
-            padding: 15px; 
-            background: #3498db; 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 18px; 
-            cursor: pointer; 
-            margin-top: 20px;
-        }
-        button:disabled { 
-            background: #ccc; 
-            cursor: not-allowed; 
-        }
-        .aviso { 
-            color: #3498db; 
-            font-size: 14px; 
-            text-align: center; 
-            margin-top: 15px;
-        }
-        .loading {
-            text-align: center;
-            color: #3498db;
-            font-style: italic;
-            margin: 10px 0;
-        }
-        .rodape { 
-            text-align: center; 
-            margin-top: 20px; 
-            font-size: 12px; 
-            color: #666;
-        }
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; color: #4a90e2; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9; }
+        input[type="checkbox"] { margin-right: 10px; }
+        .taken { text-decoration: line-through; color: #999; opacity: 0.6; background: #ffebee !important; }
+        .taken input[type="checkbox"] { display: none; } /* Esconde checkbox se já taken */
+        .taken::before { content: "✅ Tomado! "; font-weight: bold; }
+        button { background: #4a90e2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #357abd; }
+        #loading { text-align: center; color: #666; }
     </style>
 </head>
 <body>
-    <h1>🎈 Chá de Bebê - Lista de Presentes 🎈</h1>
-    <p class="info">Data: 09/11 às 15:00 | Escolha apenas 1 item e envie. Obrigada!</p>
+    <h1>Chá de Bebê Theo 🎉</h1>
+    <p>Selecione um presente abaixo. Itens já escolhidos pelos convidados ficam riscados e indisponíveis.</p>
     
-    <div id="loading" class="loading" style="display: none;">🔄 Carregando itens disponíveis...</div>
+    <ul id="presentesList">
+        <!-- Lista vai ser preenchida via JS -->
+        <li id="loading">Carregando itens...</li>
+    </ul>
     
-    <form action="https://formcarry.com/s/lKoCJSy5rO0" method="POST" id="formLista">
-        <input type="hidden" name="_next" value=""> <!-- Página do Formcarry -->
-        
-        <input type="text" name="nome" placeholder="Seu nome (pra identificarmos)" required>
-        
-        <label>
-            <input type="radio" name="presente" value="Body Manga Longa(6-9)" required>
-            <span>Body Manga Longa (6-9)</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Body Manga Curta(6-9)" required>
-            <span>Body Manga Curta (6-9)</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Kit de lenços umedecidos" required>
-            <span>Kit de lenços umedecidos</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Shampoo e sabonete baby" required>
-            <span>Shampoo e sabonete baby</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Conjunto de roupinhas de banho" required>
-            <span>Conjunto de roupinhas de banho</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Escova e pente" required>
-            <span>Escova e pente</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Conjunto de potinhos para papinhas" required>
-            <span>Conjunto de potinhos para papinhas</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Babador" required>
-            <span>Babador</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Manta" required>
-            <span>Manta</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Cortador de unhas para bebê" required>
-            <span>Cortador de unhas para bebê</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Macacão de dormir" required>
-            <span>Macacão de dormir</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Urso de pelúcia" required>
-            <span>Urso de pelúcia</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Almofada de amamentação" required>
-            <span>Almofada de amamentação</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Pomada para Assadura" required>
-            <span>Pomada para Assadura</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Cueiro" required>
-            <span>Cueiro</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Paninho de Boca" required>
-            <span>Paninho de Boca</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Toalha de banho" required>
-            <span>Toalha de banho</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Mijãozinho" required>
-            <span>Mijãozinho</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Sapatinhos" required>
-            <span>Sapatinhos</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Meias" required>
-            <span>Meias</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Aspirador Nasal" required>
-            <span>Aspirador Nasal</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Naninha" required>
-            <span>Naninha</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Trocador" required>
-            <span>Trocador</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Talco" required>
-            <span>Talco</span>
-        </label>
-        <label>
-            <input type="radio" name="presente" value="Saboneteira" required>
-            <span>Saboneteira</span>
-        </label>
-        
-        <button type="submit" id="btnEnviar">Enviar Minha Escolha</button>
-    </form>
-
-    <p class="aviso">*Após enviar, você será redirecionado para uma página de confirmação. Uma escolha por pessoa!*</p>
-    <p class="rodape">Obrigada por participar do chá de bebê! 🎈</p>
+    <p style="text-align: center; margin-top: 20px;">
+        <button onclick="salvarSelecao('Body Manga Longa (6-9)')">Exemplo: Selecionar Body Manga Longa</button> <!-- Remove depois, só pra teste -->
+    </p>
 
     <script>
-        // Função pra desabilitar itens
-        function disableTakenItems(takenItems) {
-            const labels = document.querySelectorAll('label');
-            labels.forEach(label => {
-                const radio = label.querySelector('input[type="radio"]');
-                if (radio && takenItems.includes(radio.value)) {
-                    radio.disabled = true;
-                    label.classList.add('disabled');
-                }
-            });
-        }
+        // Lista de presentes (exatamente como você forneceu!)
+        const presentes = [
+            'Body Manga Longa (6-9)',
+            'Body Manga Curta (6-9)',
+            'Kit de lenços umedecidos',
+            'Shampoo e sabonete baby',
+            'Conjunto de roupinhas de banho',
+            'Escova e pente',
+            'Conjunto de potinhos para papinhas',
+            'Babador',
+            'Manta',
+            'Cortador de unhas para bebê',
+            'Macacão de dormir',
+            'Urso de pelúcia',
+            'Almofada de amamentação',
+            'Pomada para Assadura',
+            'Cueiro',
+            'Paninho de Boca',
+            'Toalha de banho',
+            'Mijãozinho',
+            'Sapatinhos',
+            'Meias',
+            'Aspirador Nasal',
+            'Naninha',
+            'Trocador',
+            'Talco',
+            'Saboneteira'
+        ];
 
-        // Busca submissões via Netlify Function (sem CORS!)
-        async function fetchSubmissions() {
-            const loadingEl = document.getElementById('loading');
-            loadingEl.style.display = 'block';
-
+        // Função pra carregar itens tomados
+        async function carregarTakenItems() {
             try {
-                // URL absoluta pro seu site Netlify
-                const response = await fetch('https://devserver-main--chadotheo1.netlify.app');
-                if (!response.ok) {
-                    throw new Error(`Erro HTTP: ${response.status}`);
-                }
+                const response = await fetch('/.netlify/functions/get-submissions');
+                if (!response.ok) throw new Error('Erro na função');
                 const data = await response.json();
-                const uniqueTaken = data.takenItems || [];
-                disableTakenItems(uniqueTaken);
-                console.log('Itens desabilitados:', uniqueTaken); // Debug
+                return new Set(data.takenItems || []); // Set pra checagem rápida
             } catch (error) {
-                console.error('Erro ao buscar itens:', error);
-                // Sem mensagem de erro pro usuário
-            } finally {
-                loadingEl.style.display = 'none';
+                console.error('Erro ao carregar:', error);
+                return new Set(); // Fallback vazio
             }
         }
 
-        // Carrega na inicialização
-        window.addEventListener('load', fetchSubmissions);
+        // Renderiza a lista
+        async function renderizarLista() {
+            const taken = await carregarTakenItems();
+            const list = document.getElementById('presentesList');
+            list.innerHTML = ''; // Limpa loading
 
-        // No envio
-        document.getElementById('formLista').addEventListener('submit', function() {
-            document.getElementById('btnEnviar').disabled = true;
-            document.getElementById('btnEnviar').textContent = 'Enviando...';
-        });
+            presentes.forEach(item => {
+                const li = document.createElement('li');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = item.replace(/\s+/g, '-').toLowerCase(); // ID único
+
+                const label = document.createElement('label');
+                label.htmlFor = checkbox.id;
+                label.textContent = item;
+
+                li.appendChild(checkbox);
+                li.appendChild(label);
+
+                // Se já taken, risca e esconde checkbox
+                if (taken.has(item)) {
+                    li.classList.add('taken');
+                } else {
+                    // Adiciona evento pra salvar quando selecionar
+                    checkbox.addEventListener('change', () => {
+                        if (checkbox.checked) {
+                            salvarSelecao(item);
+                            checkbox.disabled = true; // Impede múltiplas seleções
+                            li.classList.add('taken'); // Risca imediatamente
+                        }
+                    });
+                }
+
+                list.appendChild(li);
+            });
+        }
+
+        // Função pra "salvar" (envia pro Formcarry - ajuste a implementação real)
+        async function salvarSelecao(item) {
+            // Para teste: Log e alerta
+            console.log(`Selecionado: ${item}`);
+            alert(`Obrigado! "${item}" foi reservado. Recarregue a página pra ver atualizado pros outros.`);
+
+            // TODO: Implementar envio real pro Formcarry
+            // Exemplo: Descomente e ajuste a função submit
+            /*
+            const response = await fetch('/.netlify/functions/submit-presente', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ presente: item })
+            });
+            if (response.ok) location.reload(); // Recarrega se sucesso
+            */
+
+            // Recarrega pra simular update (em prod, use polling ou WebSockets)
+            setTimeout(() => location.reload(), 2000);
+        }
+
+        // Carrega na init
+        renderizarLista();
     </script>
 </body>
 </html>
-
