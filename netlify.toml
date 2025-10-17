@@ -1,3 +1,0 @@
-[build]
-  publish = "."        # Publica a raiz
-  functions = "functions"  # Pasta das funções
