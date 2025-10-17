@@ -3,33 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chá de Bebê Theo - Lista de Presentes</title>
+    <title>Chá de bebê do Théo - Lista de Presentes</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #4a90e2; color: #fff; }
-        h1 { text-align: center; color: #fff; }
-        ul { list-style: none; padding: 0; }
-        li { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; color: #333; }
-        input[type="checkbox"] { margin-right: 10px; }
-        .taken { text-decoration: line-through; color: #999; opacity: 0.6; background: #ffebee !important; }
-        .taken input[type="checkbox"] { display: none; }
-        .taken::before { content: "✅ Tomado! "; font-weight: bold; }
-        .limite-info { font-size: 0.8em; color: #666; }
-        button { background: #fff; color: #4a90e2; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
-        button:hover { background: #e0e0e0; }
-        #loading { text-align: center; color: #fff; }
-        .form-group { margin: 20px 0; }
-        input[type="text"] { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; color: #333; }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #4a90e2;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+        }
+        .event-info {
+            text-align: center;
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+            color: #333;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .taken {
+            text-decoration: line-through;
+            color: #999;
+            opacity: 0.6;
+            background: #ffebee !important;
+        }
+        .taken input[type="checkbox"] {
+            display: none;
+        }
+        .taken::before {
+            content: "✅ Limite atingido! ";
+            font-weight: bold;
+        }
+        button {
+            background: #fff;
+            color: #4a90e2;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #e0e0e0;
+        }
+        #loading {
+            text-align: center;
+            color: #fff;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+            color: #333;
+        }
     </style>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-    <h1>Chá de Bebê Theo 🎉</h1>
+    <h1>🎈 Chá de bebê do Théo 🎈</h1>
+    <div class="event-info">Data do evento: 09/11/2025 às 15:00</div>
 
     <div class="form-group">
         <input type="text" id="nome" placeholder="Digite seu nome" required>
     </div>
 
-    <p style="color: #fff;">Selecione um ou mais presentes abaixo e envie sua resposta. Alguns itens têm limites de seleções.</p>
+    <p style="color: #fff;">Selecione um ou mais presentes abaixo e envie sua resposta.</p>
     
     <ul id="presentesList">
         <li id="loading">Carregando itens...</li>
@@ -42,9 +104,9 @@
     <script>
         (function() {
             emailjs.init({
-                publicKey: "Nt9goDnO2YFhX8RET" // Substitua pela sua Public Key
+                publicKey: "YOUR_PUBLIC_KEY" // Substitua pela sua Public Key
             });
-            console.log("EmailJS inicializado com Public Key:", "YOUR_PUBLIC_KEY");
+            console.log("EmailJS inicializado com Public Key.");
         })();
 
         const presentes = [
@@ -89,12 +151,15 @@
         function atualizarContador(item) {
             const chave = `contador_${item.replace(/\s+/g, '_').toLowerCase()}`;
             const atual = parseInt(localStorage.getItem(chave) || '0');
-            localStorage.setItem(chave, (atual + 1).toString());
+            const novoValor = atual + 1;
+            localStorage.setItem(chave, novoValor.toString());
+            console.log(`Atualizado ${chave} para ${novoValor}`);
         }
 
         function estaTomado(item, index) {
             const chave = `contador_${item.replace(/\s+/g, '_').toLowerCase()}`;
             const atual = parseInt(localStorage.getItem(chave) || '0');
+            console.log(`Verificando ${item}: atual=${atual}, limite=${limitesPorItem[index]}`);
             return atual >= limitesPorItem[index];
         }
 
@@ -113,13 +178,8 @@
                 label.htmlFor = checkbox.id;
                 label.textContent = item;
 
-                const limiteInfo = document.createElement('div');
-                limiteInfo.className = 'limite-info';
-                limiteInfo.textContent = `(Limite: ${limitesPorItem[index]})`;
-
                 li.appendChild(checkbox);
                 li.appendChild(label);
-                li.appendChild(limiteInfo);
 
                 if (estaTomado(item, index)) {
                     li.classList.add('taken');
@@ -163,11 +223,11 @@
                     presentes: selecionados.map(s => s.item).join(', ')
                 });
                 console.log('Resposta do servidor:', response);
-                alert(`Obrigado, ${nome}! Seus presentes foram enviados.`);
 
                 selecionados.forEach(sel => atualizarContador(sel.item));
                 renderizarLista();
 
+                alert(`Obrigado, ${nome}! Seus presentes foram enviados.`);
                 document.getElementById('nome').value = '';
                 document.querySelectorAll('input[name="presentes"]:checked').forEach(cb => cb.checked = false);
             } catch (error) {
