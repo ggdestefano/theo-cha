@@ -5,83 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chá de Bebê Theo - Lista de Presentes</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #4a90e2;
-            color: #fff;
-        }
-        h1 {
-            text-align: center;
-            color: #fff;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: #fff;
-            color: #333;
-        }
-        input[type="checkbox"] {
-            margin-right: 10px;
-        }
-        .taken {
-            text-decoration: line-through;
-            color: #999;
-            opacity: 0.6;
-            background: #ffebee !important;
-        }
-        .taken input[type="checkbox"] {
-            display: none;
-        }
-        .taken::before {
-            content: "✅ Tomado! ";
-            font-weight: bold;
-        }
-        .limite-info {
-            font-size: 0.8em;
-            color: #666;
-        }
-        button {
-            background: #fff;
-            color: #4a90e2;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background: #e0e0e0;
-        }
-        #loading {
-            text-align: center;
-            color: #fff;
-        }
-        .form-group {
-            margin: 20px 0;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: #fff;
-            color: #333;
-        }
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #4a90e2; color: #fff; }
+        h1 { text-align: center; color: #fff; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; color: #333; }
+        input[type="checkbox"] { margin-right: 10px; }
+        .taken { text-decoration: line-through; color: #999; opacity: 0.6; background: #ffebee !important; }
+        .taken input[type="checkbox"] { display: none; }
+        .taken::before { content: "✅ Tomado! "; font-weight: bold; }
+        .limite-info { font-size: 0.8em; color: #666; }
+        button { background: #fff; color: #4a90e2; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
+        button:hover { background: #e0e0e0; }
+        #loading { text-align: center; color: #fff; }
+        .form-group { margin: 20px 0; }
+        input[type="text"] { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; color: #333; }
     </style>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        emailjs.init("Nt9goDnO2YFhX8RET"); // Substitua pela sua Public Key
-    </script>
 </head>
 <body>
     <h1>Chá de Bebê Theo 🎉</h1>
@@ -101,6 +40,13 @@
     </p>
 
     <script>
+        (function() {
+            emailjs.init({
+                publicKey: "Nt9goDnO2YFhX8RET" // Substitua pela sua Public Key
+            });
+            console.log("EmailJS inicializado com Public Key:", "YOUR_PUBLIC_KEY");
+        })();
+
         const presentes = [
             'Body Manga Longa (6-9)',
             'Body Manga Curta (6-9)',
@@ -129,36 +75,8 @@
             'Saboneteira'
         ];
 
-        // Limites por item (ajuste conforme necessário: índice corresponde ao presente)
-        const limitesPorItem = [
-            3,  // Body Manga Longa (6-9) - até 3
-            3,  // Body Manga Curta (6-9) - até 3
-            5,  // Kit de lenços umedecidos - só 1
-            3,  // Shampoo e sabonete baby - até 5
-            4,  // Conjunto de roupinhas de banho - até 2
-            2,  // Escova e pente - só 1
-            4,  // Conjunto de potinhos para papinhas - até 4
-            5,  // Babador - até 5
-            2,  // Manta - até 2
-            1,  // Cortador de unhas para bebê - só 1
-            3,  // Macacão de dormir - até 3
-            5,  // Urso de pelúcia - só 1 (exclusivo)
-            2,  // Almofada de amamentação - até 2
-            3,  // Pomada para Assadura - até 5
-            2,  // Cueiro - até 3
-            5,  // Paninho de Boca - até 5
-            2,  // Toalha de banho - até 2
-            1,  // Mijãozinho - só 1
-            4,  // Sapatinhos - até 4
-            8,  // Meias - até 5
-            1,  // Aspirador Nasal - só 1
-            2,  // Naninha - até 2
-            1,  // Trocador - só 1
-            5,  // Talco - até 5
-            3   // Saboneteira - até 3
-        ];
+        const limitesPorItem = [3, 3, 1, 5, 2, 1, 4, 5, 2, 1, 3, 1, 2, 5, 3, 5, 2, 1, 4, 5, 1, 2, 1, 5, 3];
 
-        // Carrega contadores do localStorage
         function carregarContadores() {
             const contadores = {};
             presentes.forEach((item, index) => {
@@ -168,21 +86,19 @@
             return contadores;
         }
 
-        // Atualiza contador no localStorage
-        function atualizarContador(item, quantidade = 1) {
+        function atualizarContador(item) {
             const chave = `contador_${item.replace(/\s+/g, '_').toLowerCase()}`;
             const atual = parseInt(localStorage.getItem(chave) || '0');
-            localStorage.setItem(chave, (atual + quantidade).toString());
+            localStorage.setItem(chave, (atual + 1).toString());
         }
 
-        // Verifica se item está tomado (atingiu limite)
         function estaTomado(item, index) {
             const chave = `contador_${item.replace(/\s+/g, '_').toLowerCase()}`;
             const atual = parseInt(localStorage.getItem(chave) || '0');
             return atual >= limitesPorItem[index];
         }
 
-        async function renderizarLista() {
+        function renderizarLista() {
             const list = document.getElementById('presentesList');
             list.innerHTML = '';
 
@@ -197,7 +113,6 @@
                 label.htmlFor = checkbox.id;
                 label.textContent = item;
 
-                // Info do limite
                 const limiteInfo = document.createElement('div');
                 limiteInfo.className = 'limite-info';
                 limiteInfo.textContent = `(Limite: ${limitesPorItem[index]})`;
@@ -234,7 +149,6 @@
                 return;
             }
 
-            // Verifica limites antes de enviar
             for (let sel of selecionados) {
                 if (estaTomado(sel.item, sel.index)) {
                     alert(`O item "${sel.item}" já atingiu o limite de seleções!`);
@@ -243,21 +157,27 @@
             }
 
             try {
-                await emailjs.send("service_2jq56gm", "template_007ur9o", {
+                console.log('Tentando enviar:', { nome, presentes: selecionados.map(s => s.item).join(', ') });
+                const response = await emailjs.send("service_2jq56gm", "template_007ur9o", {
                     nome: nome,
                     presentes: selecionados.map(s => s.item).join(', ')
                 });
+                console.log('Resposta do servidor:', response);
                 alert(`Obrigado, ${nome}! Seus presentes foram enviados.`);
-                
-                // Atualiza contadores e recarrega lista
+
                 selecionados.forEach(sel => atualizarContador(sel.item));
-                renderizarLista(); // Atualiza em tempo real
-                
+                renderizarLista();
+
                 document.getElementById('nome').value = '';
                 document.querySelectorAll('input[name="presentes"]:checked').forEach(cb => cb.checked = false);
             } catch (error) {
-                console.error('Erro ao enviar:', error);
-                alert('Erro no envio. Verifique o console ou sua conexão.');
+                console.error('Erro detalhado:', error);
+                if (error.status) {
+                    console.error('Status:', error.status, 'Texto:', error.text || 'Sem texto');
+                    alert(`Erro de conexão: Status ${error.status}. Verifique o console ou tente novamente.`);
+                } else {
+                    alert('Erro desconhecido. Verifique o console para mais detalhes.');
+                }
             }
         }
 
