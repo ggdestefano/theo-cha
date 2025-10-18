@@ -111,12 +111,12 @@
 <script>
   emailjs.init("Nt9goDnO2YFhX8RET");
 
-  const URL_APPS_SCRIPT = "/.netlify/functions/proxy";
+  const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxg9a7M1rI9eJRabn6LFZe8BqoELhf9K602Taz1B6UJw0fam3XAmJVhiTI5qRnO1t2nbw/exec';
   const SENHA_ZERAR = "théo2025";
 
   async function carregarContadores() {
     try {
-      const response = await fetch(URL_APPS_SCRIPT);
+      const response = await fetch(URL_APPS_SCRIPT, { method: 'GET' });
       if (!response.ok) throw new Error("Erro ao carregar dados");
       const data = await response.json();
       return data;
@@ -285,3 +285,4 @@
 </script>
 </body>
 </html>
+
