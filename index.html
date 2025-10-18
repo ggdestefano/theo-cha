@@ -14,6 +14,9 @@
     color: #333;
     position: relative;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centraliza todo o conteúdo horizontalmente */
   }
   h1, h2, h3 {
     text-align: center;
@@ -22,10 +25,27 @@
     margin-bottom: 10px;
     color: #333;
   }
+  h1 {
+    font-size: 2.2rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  /* Ajuste responsivo do título para telas pequenas */
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+    }
+  }
+  h2, h3 {
+    font-size: 1.4rem; /* mesma fonte para Sugestões e Fraldas */
+  }
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
+    max-width: 500px;
     position: relative;
     z-index: 10;
   }
@@ -127,6 +147,7 @@
   <ul>
     <li>Body Manga Longa (6-9)</li>
     <li>Body Manga Curta (6-9)</li>
+    <li>colônia para bebê</li>
     <li>Kit de lenços umedecidos</li>
     <li>Shampoo e sabonete baby</li>
     <li>Conjunto de roupinhas de banho</li>
@@ -150,8 +171,8 @@
     <li>Trocador</li>
     <li>Talco</li>
     <li>Saboneteira</li>
+    <li>Bermuda ou Calça</li>
   </ul>
 
 </body>
 </html>
-
