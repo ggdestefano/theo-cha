@@ -15,7 +15,7 @@
     position: relative;
     overflow-x: hidden;
   }
-  h1, h2 {
+  h1, h2, h3 {
     text-align: center;
     position: relative;
     z-index: 10;
@@ -36,8 +36,6 @@
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
-
-  /* Imagens de fundo (balões e nuvens) */
   .background-images {
     position: fixed;
     top: 0;
@@ -76,8 +74,6 @@
     top: 180px;
     right: 25%;
   }
-
-  /* Ursos atrás da lista, maiores e com opacidade */
   .bears-background {
     position: fixed;
     top: 300px;
@@ -92,6 +88,10 @@
   .bear {
     width: 160px;
     height: auto;
+  }
+  /* Espaço entre grupos */
+  .separator {
+    margin: 30px 0 15px 0;
   }
 </style>
 </head>
@@ -112,6 +112,16 @@
   </div>
 
   <h1>🎈 Chá de bebê do Théo 🎈</h1>
+
+  <h3>Sugestões de mimos!</h3>
+  <ul>
+    <li>Fralda P</li>
+    <li>Fralda M</li>
+    <li>Fralda G</li>
+  </ul>
+
+  <div class="separator"></div>
+
   <h2>Lista de Presentes</h2>
 
   <ul>
@@ -144,3 +154,4 @@
 
 </body>
 </html>
+
