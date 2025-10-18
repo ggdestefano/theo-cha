@@ -3,238 +3,238 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Chá de Bebê do Théo - Lista de Presentes</title>
+<title>Lista Chá de Bebê do Théo</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
   body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #b7d9ec;
-    font-family: 'Baloo 2', cursive, Arial, sans-serif;
-    margin: 0; padding: 20px;
+    margin: 0;
+    padding: 30px 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
     color: #333;
-    min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+    min-height: 100vh;
   }
 
   h1 {
     text-align: center;
-    margin-bottom: 10px;
-    color: #2a4d69;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  }
-
-  .subtitle {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #4a90e2;
+    margin-bottom: 1rem;
+    font-weight: 700;
   }
 
   ul {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 1.1rem;
   }
 
   li {
-    background: white;
-    margin-bottom: 12px;
-    padding: 15px 20px;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    background: #fff;
+    margin: 8px 0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
 
-  li.taken {
-    text-decoration: line-through;
-    color: #999;
-    opacity: 0.6;
-  }
-
-  li.taken::before {
-    content: "✅";
-  }
-
-  /* Balões simples no topo */
-  .balloons {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 15px;
-    z-index: 1;
-  }
+  /* Balões animados */
   .balloon {
-    width: 40px;
-    height: 60px;
-    background: linear-gradient(135deg, #ff5f6d, #ffc371);
-    border-radius: 20px 20px 25px 25px;
-    position: relative;
-    animation: floatUp 4s ease-in-out infinite;
-  }
-  .balloon:nth-child(2) {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    animation-delay: 1.3s;
-  }
-  .balloon:nth-child(3) {
-    background: linear-gradient(135deg, #43cea2, #185a9d);
-    animation-delay: 2.5s;
-  }
-  .balloon::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    width: 2px;
-    height: 15px;
-    background: #3333;
-    transform: translateX(-50%);
-  }
-  @keyframes floatUp {
-    0%, 100% { transform: translateY(0) translateX(0) scale(1); }
-    50% { transform: translateY(-15px) translateX(5px) scale(1.05); }
-  }
-
-  /* Ursinhos e nuvens no fundo */
-  .background-elements {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .cloud {
-    position: absolute;
-    background: white;
-    border-radius: 50px;
-    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
-  }
-  .cloud1 {
-    width: 120px;
-    height: 60px;
-    top: 30px;
-    left: 10%;
-  }
-  .cloud1::before, .cloud1::after {
-    content: '';
-    position: absolute;
-    background: white;
-    border-radius: 50px;
-  }
-  .cloud1::before {
-    width: 70px;
-    height: 70px;
-    top: -25px;
-    left: 20px;
-  }
-  .cloud1::after {
-    width: 80px;
-    height: 80px;
-    top: -35px;
-    left: 60px;
+    bottom: -150px;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    opacity: 0.8;
   }
 
-  .cloud2 {
-    width: 100px;
-    height: 50px;
-    top: 70px;
-    left: 75%;
-  }
-  .cloud2::before, .cloud2::after {
-    content: '';
-    position: absolute;
-    background: white;
-    border-radius: 50px;
-  }
-  .cloud2::before {
-    width: 50px;
-    height: 50px;
-    top: -20px;
-    left: 10px;
-  }
-  .cloud2::after {
+  .balloon1 {
+    left: 20%;
     width: 60px;
-    height: 60px;
-    top: -30px;
-    left: 45px;
+    animation-name: floatUpDown1;
+    animation-duration: 8s;
+  }
+
+  .balloon2 {
+    left: 50%;
+    width: 40px;
+    animation-name: floatUpDown2;
+    animation-duration: 10s;
+  }
+
+  .balloon3 {
+    left: 80%;
+    width: 50px;
+    animation-name: floatUpDown3;
+    animation-duration: 9s;
+  }
+
+  @keyframes floatUpDown1 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+  }
+  @keyframes floatUpDown2 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-40px); }
+  }
+  @keyframes floatUpDown3 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+  }
+
+  /* Ursinhos animados */
+  .bear-container {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 10;
   }
 
   .bear {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    background: url('https://i.imgur.com/6bT7qZV.png') no-repeat center/contain;
-    transform: translateX(-50%);
-    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+    width: 80px;
+    animation: bounce 4s infinite ease-in-out;
+    transform-origin: bottom center;
   }
 
-  /* Responsive */
-  @media(max-width: 480px){
-    body {
-      padding: 15px;
+  .bear:nth-child(2) {
+    animation-delay: 1.5s;
+  }
+
+  .bear:nth-child(3) {
+    animation-delay: 3s;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0) scale(1);
     }
-    ul {
-      max-width: 100%;
+    50% {
+      transform: translateY(-20px) scale(1.05);
     }
-    .bear {
-      width: 70px;
-      height: 70px;
-      bottom: 5px;
-    }
+  }
+
+  /* Nuvens flutuantes no topo */
+  .cloud {
+    position: fixed;
+    top: 10px;
+    opacity: 0.7;
+    animation: floatCloud 20s linear infinite;
+  }
+
+  .cloud1 {
+    left: 10%;
+    width: 120px;
+    animation-duration: 25s;
+  }
+  .cloud2 {
+    left: 60%;
+    width: 150px;
+    animation-duration: 30s;
+    animation-delay: 5s;
+  }
+
+  @keyframes floatCloud {
+    0% { transform: translateX(-150px); }
+    100% { transform: translateX(110vw); }
   }
 </style>
 </head>
 <body>
 
-  <div class="balloons">
-    <div class="balloon"></div>
-    <div class="balloon"></div>
-    <div class="balloon"></div>
-  </div>
+<h1>🎈 Chá de bebê do Théo 🎈</h1>
 
-  <h1>🎈 Chá de bebê do Théo 🎈</h1>
-  <div class="subtitle">Lista de Presentes</div>
+<ul>
+  <li>Body Manga Longa (6-9)</li>
+  <li>Body Manga Curta (6-9)</li>
+  <li>Kit de lenços umedecidos</li>
+  <li>Shampoo e sabonete baby</li>
+  <li>Conjunto de roupinhas de banho</li>
+  <li>Escova e pente</li>
+  <li>Conjunto de potinhos para papinhas</li>
+  <li>Babador</li>
+  <li>Manta</li>
+  <li>Cortador de unhas para bebê</li>
+  <li>Macacão de dormir</li>
+  <li>Urso de pelúcia</li>
+  <li>Almofada de amamentação</li>
+  <li>Pomada para Assadura</li>
+  <li>Cueiro</li>
+  <li>Paninho de Boca</li>
+  <li>Toalha de banho</li>
+  <li>Mijãozinho</li>
+  <li>Sapatinhos</li>
+  <li>Meias</li>
+  <li>Aspirador Nasal</li>
+  <li>Naninha</li>
+  <li>Trocador</li>
+  <li>Talco</li>
+  <li>Saboneteira</li>
+</ul>
 
-  <ul>
-    <li>Body Manga Longa (6-9)</li>
-    <li>Body Manga Curta (6-9)</li>
-    <li>Kit de lenços umedecidos</li>
-    <li class="taken">Shampoo e sabonete baby</li>
-    <li>Conjunto de roupinhas de banho</li>
-    <li>Escova e pente</li>
-    <li class="taken">Conjunto de potinhos para papinhas</li>
-    <li>Babador</li>
-    <li>Manta</li>
-    <li>Cortador de unhas para bebê</li>
-    <li>Macacão de dormir</li>
-    <li>Urso de pelúcia</li>
-    <li>Almofada de amamentação</li>
-    <li>Pomada para Assadura</li>
-    <li>Cueiro</li>
-    <li>Paninho de Boca</li>
-    <li>Toalha de banho</li>
-    <li>Mijãozinho</li>
-    <li>Sapatinhos</li>
-    <li>Meias</li>
-    <li>Aspirador Nasal</li>
-    <li>Naninha</li>
-    <li>Trocador</li>
-    <li>Talco</li>
-    <li>Saboneteira</li>
-  </ul>
+<!-- Balões -->
+<svg class="balloon balloon1" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" >
+  <ellipse cx="32" cy="32" rx="28" ry="38" fill="#ff6f91"/>
+  <path d="M18 72h28l-14-24-14 24z" fill="#ff4b69"/>
+</svg>
 
-  <div class="background-elements">
-    <div class="cloud cloud1"></div>
-    <div class="cloud cloud2"></div>
-    <div class="bear"></div>
-  </div>
+<svg class="balloon balloon2" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" >
+  <ellipse cx="32" cy="32" rx="26" ry="38" fill="#f8b500"/>
+  <path d="M18 72h28l-14-24-14 24z" fill="#d99700"/>
+</svg>
+
+<svg class="balloon balloon3" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" >
+  <ellipse cx="32" cy="32" rx="28" ry="38" fill="#2ecc71"/>
+  <path d="M18 72h28l-14-24-14 24z" fill="#27ae60"/>
+</svg>
+
+<!-- Ursinhos animados (SVG simples) -->
+<div class="bear-container" aria-label="Ursinhos animados">
+  <svg class="bear" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" >
+    <circle cx="32" cy="32" r="30" fill="#d8b887" stroke="#7b5e34" stroke-width="3"/>
+    <circle cx="22" cy="24" r="8" fill="#d8b887" stroke="#7b5e34" stroke-width="2"/>
+    <circle cx="42" cy="24" r="8" fill="#d8b887" stroke="#7b5e34" stroke-width="2"/>
+    <circle cx="18" cy="20" r="3" fill="#7b5e34"/>
+    <circle cx="46" cy="20" r="3" fill="#7b5e34"/>
+    <circle cx="32" cy="38" r="15" fill="#d8b887" stroke="#7b5e34" stroke-width="3"/>
+    <circle cx="24" cy="38" r="3" fill="#7b5e34"/>
+    <circle cx="40" cy="38" r="3" fill="#7b5e34"/>
+  </svg>
+
+  <svg class="bear" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" >
+    <circle cx="32" cy="32" r="30" fill="#e5c3a2" stroke="#a67c52" stroke-width="3"/>
+    <circle cx="22" cy="24" r="8" fill="#e5c3a2" stroke="#a67c52" stroke-width="2"/>
+    <circle cx="42" cy="24" r="8" fill="#e5c3a2" stroke="#a67c52" stroke-width="2"/>
+    <circle cx="18" cy="20" r="3" fill="#a67c52"/>
+    <circle cx="46" cy="20" r="3" fill="#a67c52"/>
+    <circle cx="32" cy="38" r="15" fill="#e5c3a2" stroke="#a67c52" stroke-width="3"/>
+    <circle cx="24" cy="38" r="3" fill="#a67c52"/>
+    <circle cx="40" cy="38" r="3" fill="#a67c52"/>
+  </svg>
+
+  <svg class="bear" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" >
+    <circle cx="32" cy="32" r="30" fill="#d2a86a" stroke="#a56f29" stroke-width="3"/>
+    <circle cx="22" cy="24" r="8" fill="#d2a86a" stroke="#a56f29" stroke-width="2"/>
+    <circle cx="42" cy="24" r="8" fill="#d2a86a" stroke="#a56f29" stroke-width="2"/>
+    <circle cx="18" cy="20" r="3" fill="#a56f29"/>
+    <circle cx="46" cy="20" r="3" fill="#a56f29"/>
+    <circle cx="32" cy="38" r="15" fill="#d2a86a" stroke="#a56f29" stroke-width="3"/>
+    <circle cx="24" cy="38" r="3" fill="#a56f29"/>
+    <circle cx="40" cy="38" r="3" fill="#a56f29"/>
+  </svg>
+</div>
+
+<!-- Nuvens -->
+<svg class="cloud cloud1" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" >
+  <ellipse cx="20" cy="20" rx="20" ry="16" fill="#fff"/>
+  <ellipse cx="40" cy="20" rx="24" ry="18" fill="#f1f9ff"/>
+</svg>
+<svg class="cloud cloud2" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" >
+  <ellipse cx="20" cy="20" rx="22" ry="17" fill="#f9fbff"/>
+  <ellipse cx="44" cy="20" rx="28" ry="20" fill="#eaf4ff"/>
+</svg>
 
 </body>
 </html>
