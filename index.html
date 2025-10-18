@@ -3,119 +3,238 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lista de Presentes - Chá de bebê do Théo</title>
+<title>Chá de Bebê do Théo - Lista de Presentes</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
   body {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #4a90e2;
-    color: #fff;
+    background-color: #b7d9ec;
+    font-family: 'Baloo 2', cursive, Arial, sans-serif;
+    margin: 0; padding: 20px;
+    color: #333;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
   }
+
   h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    color: #2a4d69;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   }
+
+  .subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #4a90e2;
+  }
+
   ul {
-    list-style: none;
+    max-width: 400px;
+    margin: 0 auto;
     padding: 0;
+    list-style: none;
   }
+
   li {
-    background: #fff;
-    color: #333;
-    margin: 8px 0;
-    padding: 12px 15px;
-    border-radius: 6px;
-    font-size: 18px;
+    background: white;
+    margin-bottom: 12px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  li.taken {
+    text-decoration: line-through;
+    color: #999;
+    opacity: 0.6;
+  }
+
+  li.taken::before {
+    content: "✅";
+  }
+
+  /* Balões simples no topo */
+  .balloons {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 1;
+  }
+  .balloon {
+    width: 40px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff5f6d, #ffc371);
+    border-radius: 20px 20px 25px 25px;
     position: relative;
+    animation: floatUp 4s ease-in-out infinite;
   }
-  li.limite-atingido {
-    background: #ffebee;
-    color: #a00;
-    font-weight: bold;
+  .balloon:nth-child(2) {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    animation-delay: 1.3s;
   }
-  li.limite-atingido::after {
-    content: " (Limite atingido)";
-    color: #a00;
-    font-weight: bold;
+  .balloon:nth-child(3) {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    animation-delay: 2.5s;
+  }
+  .balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    width: 2px;
+    height: 15px;
+    background: #3333;
+    transform: translateX(-50%);
+  }
+  @keyframes floatUp {
+    0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+    50% { transform: translateY(-15px) translateX(5px) scale(1.05); }
+  }
+
+  /* Ursinhos e nuvens no fundo */
+  .background-elements {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+  }
+  .cloud1 {
+    width: 120px;
+    height: 60px;
+    top: 30px;
+    left: 10%;
+  }
+  .cloud1::before, .cloud1::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+  }
+  .cloud1::before {
+    width: 70px;
+    height: 70px;
+    top: -25px;
+    left: 20px;
+  }
+  .cloud1::after {
+    width: 80px;
+    height: 80px;
+    top: -35px;
+    left: 60px;
+  }
+
+  .cloud2 {
+    width: 100px;
+    height: 50px;
+    top: 70px;
+    left: 75%;
+  }
+  .cloud2::before, .cloud2::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+  }
+  .cloud2::before {
+    width: 50px;
+    height: 50px;
+    top: -20px;
+    left: 10px;
+  }
+  .cloud2::after {
+    width: 60px;
+    height: 60px;
+    top: -30px;
+    left: 45px;
+  }
+
+  .bear {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: url('https://i.imgur.com/6bT7qZV.png') no-repeat center/contain;
+    transform: translateX(-50%);
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+  }
+
+  /* Responsive */
+  @media(max-width: 480px){
+    body {
+      padding: 15px;
+    }
+    ul {
+      max-width: 100%;
+    }
+    .bear {
+      width: 70px;
+      height: 70px;
+      bottom: 5px;
+    }
   }
 </style>
 </head>
 <body>
-  <h1>🎈 Chá de bebê do Théo - Lista de Presentes 🎈</h1>
-  <ul id="lista-presentes">
-    <li>Carregando lista...</li>
+
+  <div class="balloons">
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+  </div>
+
+  <h1>🎈 Chá de bebê do Théo 🎈</h1>
+  <div class="subtitle">Lista de Presentes</div>
+
+  <ul>
+    <li>Body Manga Longa (6-9)</li>
+    <li>Body Manga Curta (6-9)</li>
+    <li>Kit de lenços umedecidos</li>
+    <li class="taken">Shampoo e sabonete baby</li>
+    <li>Conjunto de roupinhas de banho</li>
+    <li>Escova e pente</li>
+    <li class="taken">Conjunto de potinhos para papinhas</li>
+    <li>Babador</li>
+    <li>Manta</li>
+    <li>Cortador de unhas para bebê</li>
+    <li>Macacão de dormir</li>
+    <li>Urso de pelúcia</li>
+    <li>Almofada de amamentação</li>
+    <li>Pomada para Assadura</li>
+    <li>Cueiro</li>
+    <li>Paninho de Boca</li>
+    <li>Toalha de banho</li>
+    <li>Mijãozinho</li>
+    <li>Sapatinhos</li>
+    <li>Meias</li>
+    <li>Aspirador Nasal</li>
+    <li>Naninha</li>
+    <li>Trocador</li>
+    <li>Talco</li>
+    <li>Saboneteira</li>
   </ul>
 
-<script>
-  const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxg9a7M1rI9eJRabn6LFZe8BqoELhf9K602Taz1B6UJw0fam3XAmJVhiTI5qRnO1t2nbw/exec';
+  <div class="background-elements">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="bear"></div>
+  </div>
 
-  // Mesma lista fixa que você usa no Apps Script (A2:A26)
-  const presentes = [
-    "Body Manga Longa (6-9)",
-    "Body Manga Curta (6-9)",
-    "Kit de lenços umedecidos",
-    "Shampoo e sabonete baby",
-    "Conjunto de roupinhas de banho",
-    "Escova e pente",
-    "Conjunto de potinhos para papinhas",
-    "Babador",
-    "Manta",
-    "Cortador de unhas para bebê",
-    "Macacão de dormir",
-    "Urso de pelúcia",
-    "Almofada de amamentação",
-    "Pomada para Assadura",
-    "Cueiro",
-    "Paninho de Boca",
-    "Toalha de banho",
-    "Mijãozinho",
-    "Sapatinhos",
-    "Meias",
-    "Aspirador Nasal",
-    "Naninha",
-    "Trocador",
-    "Talco",
-    "Saboneteira"
-  ];
-
-  function formatarChave(item) {
-    return item.toLowerCase().replace(/\s+/g, "_");
-  }
-
-  async function carregarLista() {
-    const ul = document.getElementById('lista-presentes');
-    ul.innerHTML = '<li>Carregando lista...</li>';
-
-    try {
-      const res = await fetch(URL_APPS_SCRIPT);
-      if (!res.ok) throw new Error('Erro ao carregar dados');
-      const data = await res.json();
-
-      ul.innerHTML = '';
-
-      presentes.forEach(item => {
-        const chave = formatarChave(item);
-        const contadorObj = data[chave] || { contador: 0, limite: 0 };
-        const li = document.createElement('li');
-
-        if (contadorObj.limite > 0 && contadorObj.contador >= contadorObj.limite) {
-          li.classList.add('limite-atingido');
-        }
-        
-        li.textContent = item;
-        ul.appendChild(li);
-      });
-
-    } catch (e) {
-      ul.innerHTML = '<li>Erro ao carregar a lista.</li>';
-      console.error(e);
-    }
-  }
-
-  carregarLista();
-</script>
 </body>
 </html>
-
