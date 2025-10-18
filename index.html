@@ -134,8 +134,11 @@
         body: JSON.stringify({ item, action: "increment" }),
       });
       if (!response.ok) throw new Error("Erro ao atualizar");
+      const result = await response.json();
+      return result.success;
     } catch (error) {
       console.error("Erro ao atualizar contador:", error);
+      return false;
     }
   }
 
@@ -264,7 +267,12 @@
       });
 
       for (const item of selecionados) {
-        await atualizarContador(item);
+        const sucesso = await atualizarContador(item);
+        if (!sucesso) {
+          alert(`Erro: Não foi possível reservar o item "${item}" (limite atingido).`);
+          await renderizarLista();
+          return;
+        }
       }
 
       alert(`Obrigado, ${nome}!`);
@@ -285,4 +293,3 @@
 </script>
 </body>
 </html>
-
